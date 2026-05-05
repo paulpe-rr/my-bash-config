@@ -1,4 +1,6 @@
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+#!/usr/bin/env bash
 
-source "$SCRIPT_DIR/ssh-agent-manager.sh"
-source "$SCRIPT_DIR/ls_colors.sh"
+script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+source "$script_dir/ssh-agent-manager.sh"
+source "$script_dir/ls_colors.sh"

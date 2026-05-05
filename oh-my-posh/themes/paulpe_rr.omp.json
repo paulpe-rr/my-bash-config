@@ -12,7 +12,7 @@
           "invert_powerline": true,
           "foreground": "#1A1A1A",
           "background": "#FFD866",
-          "properties": {
+          "options": {
             "threshold": 0
           },
           "template": " ⏱ {{ .FormattedMs }} "
@@ -27,8 +27,8 @@
           "foreground_templates": [
             "{{ if eq .Code 0 }}#1A1A1A{{ else }}#FFFFFF{{end}}"
           ],
-          "template": " {{ if eq .Code 0 }}✔{{ else }}✘ {{ .Code }}{{ end }}  ",
-          "properties": {
+          "template": " {{ if eq .Code 0 }}✔{{ else }}✘ {{ .Code }}{{ if and (reason .Code) (ne (reason .Code) \"ERROR\") }} · {{ reason .Code }}{{ end }}{{ end }}  ",
+          "options": {
             "always_enabled": true
           }
         }
@@ -48,11 +48,11 @@
           "style": "diamond"
         },
         {
-          "properties": {
+          "options": {
             "branch_icon": " ",
             "fetch_status": true
           },
-          "template": " {{ .HEAD }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .Behind 0 }} ⇣ {{ .Behind }}{{ end }}{{ if gt .Ahead 0 }} ⇡ {{ .Ahead }}{{ end }} ",
+          "template": " {{ if .HEAD }}{{ .HEAD }}{{ else }}detached{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .Behind 0 }} ⇣ {{ .Behind }}{{ end }}{{ if gt .Ahead 0 }} ⇡ {{ .Ahead }}{{ end }} ",
           "foreground": "#FFFFFF",
           "powerline_symbol": "",
           "background": "#3A7BD5",
@@ -60,15 +60,17 @@
           "style": "powerline"
         },
         {
-          "properties": {
+          "options": {
             "folder_separator_icon": "/",
+            "mapped_locations_enabled": true,
             "mapped_locations": {
+              "~/workspace/*": " ",
               "~": " "
             },
-            "max_depth": 4,
-            "max_string_length": 30,
-            "style": "folder",
-            "truncate_to_repo": true
+            "max_depth": 3,
+            "style": "agnoster_short",
+            "hide_root_location": true,
+            "gitdir_format": "<b>%s</b>"
           },
           "template": "  {{ .Path }} ",
           "foreground": "#FFFFFF",
@@ -84,7 +86,7 @@
       "alignment": "right",
       "segments": [
         {
-          "properties": {
+          "options": {
             "time_format": "15:04:05"
           },
           "template": "  {{ .CurrentDate | date .Format }} ",

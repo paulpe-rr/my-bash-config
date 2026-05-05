@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 # Color configuration for `ls --color`
 LS_COLORS=""
 
